@@ -1,11 +1,424 @@
- <!DOCTYPE html>                                                                                                                  
-   <html>                                                                                                                           
-     <head>                                                                                                                         
-       <meta charset="utf-8" />                                                                                                     
-       <title>BillyBob Hello</title>                                                                                                
-     </head>                                                                                                                        
-     <body>                                                                                                                         
-       <h1>Hello from BillyBob + OpenClaw + Vercel</h1>                                                                             
-       <p>If you see this, GitHub + Vercel wiring works.</p>                                                                        
-     </body>                                                                                                                        
-   </html>                              
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jackpot Enterprises</title>
+    <style>
+      :root {
+        --bg: #050816;
+        --bg-alt: #0b1120;
+        --accent: #fbbf24;
+        --accent-soft: rgba(251, 191, 36, 0.15);
+        --accent-strong: #f97316;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --card: rgba(15, 23, 42, 0.9);
+        --border: rgba(148, 163, 184, 0.25);
+        --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
+        color: var(--text);
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      .noise {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        opacity: 0.06;
+        mix-blend-mode: soft-light;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+        z-index: 0;
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1040px;
+        padding: 32px 20px 40px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 32px;
+      }
+
+      .logo-mark {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 20%, #fbbf24, #f97316 55%, #111827 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.08),
+          0 18px 35px rgba(15, 23, 42, 0.9);
+      }
+
+      .logo-mark span {
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: #020617;
+      }
+
+      .brand {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .brand h1 {
+        font-size: 1.2rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .brand h1 strong {
+        color: var(--accent);
+      }
+
+      .brand span {
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+      }
+
+      .chip {
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: rgba(15, 23, 42, 0.8);
+        font-size: 0.75rem;
+        color: var(--muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .chip-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #22c55e;
+        box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+        gap: 28px;
+      }
+
+      @media (max-width: 800px) {
+        main {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .shell {
+          padding-inline: 16px;
+        }
+      }
+
+      .hero {
+        padding: 26px 22px 22px;
+        border-radius: 22px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: radial-gradient(circle at top left, var(--accent-soft), var(--card));
+        box-shadow: var(--shadow-soft);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-tagline {
+        font-size: 0.8rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+
+      .hero-title {
+        font-size: clamp(2rem, 3vw + 1rem, 3rem);
+        line-height: 1.05;
+        font-weight: 800;
+        margin-bottom: 14px;
+      }
+
+      .hero-title span {
+        background: linear-gradient(120deg, var(--accent), var(--accent-strong));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero-sub {
+        color: var(--muted);
+        font-size: 0.95rem;
+        max-width: 32rem;
+        margin-bottom: 22px;
+      }
+
+      .hero-sub strong {
+        color: var(--text);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+
+      .btn-primary {
+        border-radius: 999px;
+        padding: 10px 18px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #020617;
+        background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+        box-shadow: 0 12px 25px rgba(251, 191, 36, 0.4);
+      }
+
+      .btn-secondary {
+        border-radius: 999px;
+        padding: 10px 16px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--muted);
+        background: rgba(15, 23, 42, 0.8);
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .hero-meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .hero-badge {
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .hero-orbit {
+        position: absolute;
+        right: -80px;
+        top: -40px;
+        width: 220px;
+        height: 220px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        background: radial-gradient(circle at 30% 20%, rgba(251, 191, 36, 0.3), transparent 60%),
+          radial-gradient(circle at 70% 80%, rgba(37, 99, 235, 0.2), transparent 75%);
+        opacity: 0.9;
+        filter: blur(0.2px);
+      }
+
+      .hero-orbit::after {
+        content: '';
+        position: absolute;
+        inset: 24px;
+        border-radius: inherit;
+        border: 1px dashed rgba(148, 163, 184, 0.35);
+      }
+
+      .hero-orbit-dot {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 16px rgba(251, 191, 36, 0.8);
+        right: 34px;
+        top: 40px;
+      }
+
+      .side-card {
+        padding: 22px 18px 18px;
+        border-radius: 22px;
+        background: linear-gradient(145deg, #020617, #020617 42%, #111827);
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        box-shadow: var(--shadow-soft);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .side-card-title {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .pill {
+        padding: 8px 10px;
+        border-radius: 14px;
+        border: 1px solid rgba(75, 85, 99, 0.7);
+        background: rgba(15, 23, 42, 0.9);
+        font-size: 0.8rem;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .pill span.label {
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .pill span.value {
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .footer-note {
+        font-size: 0.75rem;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+
+      .footer-note strong {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="noise"></div>
+    <div class="shell">
+      <header>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="logo-mark"><span>JP</span></div>
+          <div class="brand">
+            <h1><strong>JACKPOT</strong> ENTERPRISES</h1>
+            <span>Quiet automations // Loud results</span>
+          </div>
+        </div>
+        <div class="chip">
+          <span class="chip-dot"></span>
+          <span>Operator online</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-orbit"></div>
+          <div class="hero-orbit-dot"></div>
+
+          <div class="hero-tagline">Small machines, big multipliers</div>
+
+          <div class="hero-title">
+            We build
+            <span>quiet cash machines</span>
+            that never stop playing.
+          </div>
+
+          <p class="hero-sub">
+            Jackpot Enterprises is a tiny studio of automation gremlins
+            obsessed with turning boring workflows into stacked jackpots.
+            <strong>No hype, no dashboards—just systems that earn while you
+            sleep.</strong>
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="window.location.href='mailto:zac@jackpot-enterprises.com?subject=I want a quiet cash machine'">
+              Build me a machine
+            </button>
+            <button class="btn-secondary" onclick="window.location.href='https://walker.jackpot-enterprises.com'">
+              See a tiny experiment
+            </button>
+          </div>
+
+          <div class="hero-meta">
+            <span>
+              <span style="width:7px;height:7px;border-radius:999px;background:var(--accent);"></span>
+              Pinball‑grade focus, SaaS‑grade uptime
+            </span>
+            <span class="hero-badge">Optimized for solo operators</span>
+          </div>
+        </section>
+
+        <aside class="side-card">
+          <div class="side-card-title">Current modes</div>
+          <div class="grid">
+            <div class="pill">
+              <span class="label">Inbox filters</span>
+              <span class="value">Email → signal only</span>
+            </div>
+            <div class="pill">
+              <span class="label">Schedule nudges</span>
+              <span class="value">Hydrate, dont tilt</span>
+            </div>
+            <div class="pill">
+              <span class="label">LLM routing</span>
+              <span class="value">Fast / balanced / deep</span>
+            </div>
+            <div class="pill">
+              <span class="label">Microsites</span>
+              <span class="value">Vercel on tap</span>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            Right now, Jackpot Enterprises is in
+            <strong>Wealth Mode</strong>: testing small, fully automated
+            systems that can be cloned, stacked, and left alone.
+            <br /><br />
+            If you want something similar wired into your world, send one line:
+            <strong>"I want a quiet cash machine"</strong> to the email above.
+          </p>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>
